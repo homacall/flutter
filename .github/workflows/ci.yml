@@ -69,7 +69,7 @@ jobs:
           tag: v1.0.${{ github.run_number }}
           token: ${{ secrets.TOKEN }}
   deploy_app:
-    name: Push to Releases
+    name: (Push to Releases)
     uses: ncipollo/release-action@v1
     with:
       artifacts: "build/app/outputs/apk/debug/*,build/ios/iphoneos/app.ipa"
