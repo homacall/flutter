@@ -47,6 +47,12 @@ jobs:
           ln -s ../Runner.app
           cd ..
           zip -r app.ipa Payload
+      - name: Push to Releases
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: "build/app/outputs/apk/debug/*,build/ios/iphoneos/app.ipa"
+          tag: v1.0.${{ github.run_number }}
+          token: ${{ secrets.TOKEN }}
   build_appbundle:
     name: Build Flutter (Android)
     needs: [flutter_test]
@@ -62,10 +68,3 @@ jobs:
       - run: flutter pub get
       - run: flutter clean
       - run: flutter build apk --debug     
-  deploy_app:
-    name: Push to Releases
-    uses: ncipollo/release-action@v1
-    with:
-      artifacts: "build/app/outputs/apk/debug/*,build/ios/iphoneos/app.ipa"
-      tag: v1.0.${{ github.run_number }}
-      token: ${{ secrets.TOKEN }}
